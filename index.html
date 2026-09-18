@@ -63,7 +63,8 @@
                             <span class="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-300/50">EdTech MSU</span>
                             <span id="apiStatusBadge" class="inline-flex items-center text-[11px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
                                 <span class="w-2 h-2 rounded-full bg-slate-400 mr-1.5 animate-pulse"></span>
-                          </span>
+                                โหมดจำลอง (Demo)
+                            </span>
                         </div>
                         <h1 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight mt-0.5">ระบบบริหารจัดการงบประมาณโครงการประจำปี</h1>
                         <p class="text-xs text-slate-500 hidden sm:block">ภาควิชาเทคโนโลยีและสื่อสารการศึกษา คณะศึกษาศาสตร์ มหาวิทยาลัยมหาสารคาม</p>
@@ -112,7 +113,7 @@
                             </div>
                             <div class="space-y-1 max-h-60 overflow-y-auto custom-scrollbar" id="userSwitcherList">
                             </div>
-                            <div id="adminUserManageLink" class="pt-2 border-t border-slate-100 mt-2">
+                            <div id="adminUserManageLink" class="pt-2 border-t border-slate-100 mt-2 hidden">
                                 <button onclick="openModal('userManagementModal'); closeUserDropdown();" class="w-full text-left px-3 py-2 text-xs font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 rounded-xl transition flex items-center justify-between">
                                     <span class="flex items-center"><i class="ph-bold ph-users-three mr-1.5 text-base text-amber-600"></i> จัดการผู้ใช้และกำหนดสิทธิ์</span>
                                     <i class="ph-bold ph-arrow-right"></i>
@@ -702,7 +703,7 @@
                         <i class="ph-bold ph-shield-check"></i>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-slate-900">กำหนดสิทธิ์และบทบาทผู้ใช้งาน (System)</h3>
+                        <h3 class="text-base font-bold text-slate-900">กำหนดสิทธิ์และบทบาทผู้ใช้งาน (RBAC System)</h3>
                         <p class="text-xs text-slate-500">สิทธิ์ทั้งหมดสามารถกำหนดโดย Admin ได้ทุกประการ</p>
                     </div>
                 </div>
@@ -777,7 +778,7 @@
             </div>
 
             <div class="mt-4 flex justify-between items-center">
-                <button onclick="switchTab('users'); closeModal('userManagementModal');" class="text-xs font-bold text-amber-800 hover:text-amber-900 flex items-center">
+                <button id="btnGoUsersFullTab" onclick="switchTab('users'); closeModal('userManagementModal');" class="text-xs font-bold text-amber-800 hover:text-amber-900 flex items-center hidden">
                     <i class="ph-bold ph-arrow-square-out mr-1"></i> ไปที่หน้าจอจัดการผู้ใช้แบบเต็ม
                 </button>
                 <button onclick="closeModal('userManagementModal')" class="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900">
@@ -808,7 +809,7 @@
             <div class="space-y-3">
                 <div>
                     <label class="block text-xs font-semibold text-slate-700 mb-1">Google Apps Script Web App URL</label>
-                    <input type="url" id="apiUrlInput" placeholder="https://script.google.com/macros/s/AKfycbzP7HJMzdJF9Rgy1-hT86xUh9pGtfP0cxOy7gTjIUcWqUOqwy7VlXx4OxsymJBuiExO/exec" class="w-full text-xs border border-slate-300 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <input type="url" id="apiUrlInput" placeholder="https://script.google.com/macros/s/.../exec" class="w-full text-xs border border-slate-300 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                 </div>
 
                 <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-[11px] text-slate-600 space-y-1">
@@ -992,7 +993,7 @@
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block font-semibold text-slate-700 mb-1">เลขที่บันทึกข้อความ / อว. *</label>
+                        <label class="block font-semibold text-slate-700 mb-1">เลขที่บันทึกข้อความ / ฎีกา *</label>
                         <input type="text" id="dRefNo" required placeholder="เช่น ศศ.0512/045" class="w-full border border-slate-300 rounded-xl px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                     </div>
                     <div>
@@ -1018,7 +1019,7 @@
                         <input type="number" id="dAmount" required min="1" step="0.5" placeholder="15000" class="w-full border border-slate-300 rounded-xl px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                     </div>
                     <div>
-                        <label class="block font-semibold text-slate-700 mb-1">วันที่ตามเบิกจ่าย *</label>
+                        <label class="block font-semibold text-slate-700 mb-1">วันที่ตามฎีกาเบิกจ่าย *</label>
                         <input type="date" id="dDate" required class="w-full border border-slate-300 rounded-xl px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                     </div>
                 </div>
@@ -1047,6 +1048,14 @@
     </div>
 
     <script>
+        /* =========================================================================
+         * [จุดวาง Web App URL] สำหรับเชื่อมต่อ Google Sheets API
+         * นำ URL ที่ได้จากการ Deploy ใน Google Apps Script (ลงท้ายด้วย /exec)
+         * มาวางในเครื่องหมายคำพูด ' ' ด้านล่างนี้ได้เลยครับ เช่น:
+         * const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycb.../exec';
+         * ========================================================================= */
+        const DEFAULT_API_URL = ''; 
+
         const STORAGE_KEY_API = 'EDTECH_MSU_API_URL';
         const STORAGE_KEY_CURRENT_USER = 'EDTECH_MSU_CURRENT_USER';
         const STORAGE_KEY_SESSION = 'EDTECH_MSU_AUTH_SESSION';
@@ -1077,7 +1086,7 @@
                 id: 'USR-002',
                 username: 'dean_edu',
                 password: 'dean1234',
-                name: 'รศ.ดร. ชวลิต ชูกำแพง (คณบดีคณะศึกษาศาสตร์)',
+                name: 'รศ.ดร. นิติ สมานฉันท์ (คณบดีคณะศึกษาศาสตร์)',
                 email: 'dean.edu@msu.ac.th',
                 role: 'คณบดี',
                 status: 'Active',
@@ -1311,7 +1320,7 @@
             }
         ];
 
-        let disbursements = [
+        disbursements = [
             {
                 id: "DSB-001",
                 projectId: "PRJ-2569-001",
@@ -1351,7 +1360,7 @@
         ];
 
         function getApiUrl() {
-            return localStorage.getItem(STORAGE_KEY_API) || '';
+            return localStorage.getItem(STORAGE_KEY_API) || DEFAULT_API_URL || '';
         }
 
         function updateApiBadge() {
@@ -1498,12 +1507,17 @@
                 }`;
             }
 
-            if (currentUser.role === 'Admin' || hasPermission('manage_users')) {
+            const isAdmin = currentUser && currentUser.role === 'Admin';
+            const btnGoUsersFull = document.getElementById('btnGoUsersFullTab');
+
+            if (isAdmin) {
                 tabUsersBtn?.classList.remove('hidden');
                 adminManageLink?.classList.remove('hidden');
+                btnGoUsersFull?.classList.remove('hidden');
             } else {
                 tabUsersBtn?.classList.add('hidden');
                 adminManageLink?.classList.add('hidden');
+                btnGoUsersFull?.classList.add('hidden');
             }
 
             const listEl = document.getElementById('userSwitcherList');
@@ -1528,6 +1542,7 @@
         function applyPermissionRestrictions() {
             if (!currentUser) currentUser = GUEST_USER;
             const isGuest = currentUser.role === 'บุคคลทั่วไป';
+            const isAdmin = currentUser.role === 'Admin';
 
             const tabDashboard = document.getElementById('tab-dashboard');
             const tabProjects = document.getElementById('tab-projects');
@@ -1546,6 +1561,11 @@
                 tabProjects?.classList.remove('hidden');
                 tabDisbursements?.classList.remove('hidden');
                 tabReports?.classList.remove('hidden');
+                if (isAdmin) {
+                    tabUsers?.classList.remove('hidden');
+                } else {
+                    tabUsers?.classList.add('hidden');
+                }
             }
 
             const canManageProjects = hasPermission('manage_projects') || hasPermission('create_projects');
@@ -1792,6 +1812,13 @@
         }
 
         function switchTab(tabId) {
+            // ป้องกันการเข้าถึงแท็บจัดการผู้ใช้หากไม่ได้ล็อกอินเป็น Admin
+            if (tabId === 'users' && (!currentUser || currentUser.role !== 'Admin')) {
+                showToast("ไม่มีสิทธิ์เข้าถึง", "เฉพาะผู้ดูแลระบบ (Admin) เท่านั้นที่สามารถเข้าใช้งานส่วนนี้ได้", true);
+                switchTab(currentUser && currentUser.role === 'บุคคลทั่วไป' ? 'projects' : 'dashboard');
+                return;
+            }
+
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.className = "tab-btn flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap text-slate-600 hover:bg-slate-100";
             });
