@@ -126,10 +126,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <button onclick="loadAllData()" id="syncBtn" class="p-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white shadow-md shadow-amber-500/20 transition" title="รีเฟรช / ซิงค์ข้อมูล">
-                        <i class="ph-bold ph-arrows-clockwise text-lg" id="syncIcon"></i>
-                    </button>
                 </div>
             </div>
 
@@ -155,10 +151,6 @@
                 <button onclick="switchTab('users')" id="tab-users" class="tab-btn hidden flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap text-slate-600 hover:bg-slate-100">
                     <i class="ph-bold ph-shield-check"></i>
                     <span>จัดการผู้ใช้และสิทธิ์ (Admin)</span>
-                </button>
-                <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap text-slate-600 hover:bg-slate-100">
-                    <i class="ph-bold ph-clipboard-text"></i>
-                    <span>ตรวจความครบถ้วนระบบ (Checklist)</span>
                 </button>
             </div>
         </div>
@@ -489,43 +481,6 @@
                         <tbody id="usersTableBody" class="divide-y divide-slate-100">
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </section>
-
-        <section id="content-checklist" class="tab-content hidden space-y-6">
-            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
-                <h3 class="text-base font-bold text-slate-900">เกณฑ์การตรวจสอบความครบถ้วนของระบบ (System Completeness & Audit Checklist)</h3>
-                <p class="text-xs text-slate-500 mt-1">เครื่องมือประเมินความพร้อมและมาตรฐานระบบบริหารจัดการงบประมาณ สำหรับภาควิชาเทคโนโลยีและสื่อสารการศึกษา คณะศึกษาศาสตร์ มมส</p>
-                <div class="mt-4 space-y-3">
-                    <div class="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200 flex items-start space-x-3">
-                        <i class="ph-bold ph-check-circle text-emerald-600 text-lg mt-0.5"></i>
-                        <div>
-                            <div class="text-xs font-bold text-emerald-900">ความสอดคล้องกับระเบียบการเงินและงบประมาณ มมส</div>
-                            <div class="text-[11px] text-emerald-700">มีระบบคุมฎีกา/บันทึกข้อความ แยกหมวดรายจ่าย 5 หมวดหลัก และระบบแจ้งเตือนเมื่อเบิกจ่ายเกินวงเงิน</div>
-                        </div>
-                    </div>
-                    <div class="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200 flex items-start space-x-3">
-                        <i class="ph-bold ph-check-circle text-emerald-600 text-lg mt-0.5"></i>
-                        <div>
-                            <div class="text-xs font-bold text-emerald-900">การเชื่อมโยงยุทธศาสตร์และเป้าหมายการพัฒนาที่ยั่งยืน (SDGs)</div>
-                            <div class="text-[11px] text-emerald-700">สามารถระบุวัตถุประสงค์ ยุทธศาสตร์สอดคล้อง และ SDG ของทุกโครงการได้อย่างละเอียด</div>
-                        </div>
-                    </div>
-                    <div class="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200 flex items-start space-x-3">
-                        <i class="ph-bold ph-check-circle text-emerald-600 text-lg mt-0.5"></i>
-                        <div>
-                            <div class="text-xs font-bold text-emerald-900">ความมั่นคงปลอดภัยและการกำหนดสิทธิ์ตามบทบาท (Role-Based Access Control)</div>
-                            <div class="text-[11px] text-emerald-700">รองรับ 6 บทบาท (Admin, คณบดี, หัวหน้าภาควิชาฯ, เจ้าหน้าที่, อาจารย์, นิสิต) พร้อม Admin Console ปรับแต่งสิทธิ์ได้ละเอียด</div>
-                        </div>
-                    </div>
-                    <div class="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200 flex items-start space-x-3">
-                        <i class="ph-bold ph-check-circle text-emerald-600 text-lg mt-0.5"></i>
-                        <div>
-                            <div class="text-xs font-bold text-emerald-900">การจัดเก็บเอกสารและฐานข้อมูลระบบคลาวด์</div>
-                            <div class="text-[11px] text-emerald-700">รองรับการแนบลิงก์ Google Drive เอกสารโครงการ และจัดเก็บฐานข้อมูลลงบน Google Sheets ผ่าน Apps Script Web App API</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -864,13 +819,10 @@
                     <div id="apiModeNotice">กำลังใช้ข้อมูลจำลอง (Demo Mode) เมื่อใส่ URL API และบันทึก ระบบจะสลับไปดึงข้อมูลจริงจาก Google Sheets ทันที</div>
                 </div>
 
-                <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+                <div class="flex items-center justify-end pt-3 border-t border-slate-100">
                     <button type="button" onclick="testAndSaveApiUrl()" id="btnSaveApi" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow transition flex items-center space-x-1.5">
                         <i class="ph-bold ph-check"></i>
                         <span>ทดสอบและบันทึก URL</span>
-                    </button>
-                    <button type="button" onclick="clearApiUrl()" class="text-xs text-rose-600 hover:text-rose-700 font-semibold">
-                        ล้างค่า (กลับสู่ Demo Mode)
                     </button>
                 </div>
             </div>
@@ -1421,11 +1373,11 @@
         async function loadAllData() {
             const apiUrl = getApiUrl();
             const syncIcon = document.getElementById('syncIcon');
-            syncIcon.classList.add('animate-spin');
+            if (syncIcon) syncIcon.classList.add('animate-spin');
 
             if (!apiUrl) {
                 setTimeout(() => {
-                    syncIcon.classList.remove('animate-spin');
+                    if (syncIcon) syncIcon.classList.remove('animate-spin');
                     refreshAllUI();
                     showToast("โหลดข้อมูลสำเร็จ", "กำลังใช้งานข้อมูลตัวอย่าง (Demo Mode)");
                 }, 400);
@@ -1460,7 +1412,7 @@
                 console.error("API Fetch Error:", err);
                 showToast("การเชื่อมต่อล้มเหลว", "ไม่สามารถติดต่อ Google Apps Script ได้ โปรดตรวจ Web App URL", true);
             } finally {
-                syncIcon.classList.remove('animate-spin');
+                if (syncIcon) syncIcon.classList.remove('animate-spin');
                 refreshAllUI();
             }
         }
@@ -1583,7 +1535,6 @@
             const tabDisbursements = document.getElementById('tab-disbursements');
             const tabReports = document.getElementById('tab-reports');
             const tabUsers = document.getElementById('tab-users');
-            const tabChecklist = document.getElementById('tab-checklist');
 
             if (isGuest) {
                 tabDashboard?.classList.add('hidden');
@@ -1591,13 +1542,11 @@
                 tabDisbursements?.classList.add('hidden');
                 tabReports?.classList.add('hidden');
                 tabUsers?.classList.add('hidden');
-                tabChecklist?.classList.add('hidden');
             } else {
                 tabDashboard?.classList.remove('hidden');
                 tabProjects?.classList.remove('hidden');
                 tabDisbursements?.classList.remove('hidden');
                 tabReports?.classList.remove('hidden');
-                tabChecklist?.classList.remove('hidden');
             }
 
             const canManageProjects = hasPermission('manage_projects') || hasPermission('create_projects');
